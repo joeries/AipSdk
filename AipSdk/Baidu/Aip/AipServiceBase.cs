@@ -96,6 +96,27 @@ namespace Baidu.Aip
             DoAuthorization();
         }
 
+        protected virtual T PostAction<T>(AipHttpRequest aipReq)
+        {
+            var respStr = SendRequet(aipReq);
+            //		    Console.WriteLine(respStr);
+            T respObj;
+            try
+            {
+                respObj = JsonConvert.DeserializeObject<T>(respStr);
+            }
+            catch (Exception e)
+            {
+                // 非json应该抛异常
+                throw new AipException(e.Message + ": " + respStr);
+            }
+
+            if (respObj == null)
+                throw new AipException("Empty response, please check input");
+
+            return respObj;
+        }
+
         protected virtual JObject PostAction(AipHttpRequest aipReq)
         {
             var respStr = SendRequet(aipReq);
@@ -160,6 +181,12 @@ namespace Baidu.Aip
         {
             if (obj == null)
                 throw new AipException(name + " cannot be null.");
+        }
+
+        protected void CheckListCountNotZero<T>(object obj, string name)
+        {            
+            if ((obj as IList<T>).Count == 0)
+                throw new AipException(name + " cannot be empty.");
         }
 
         protected string ImagesToParams(IEnumerable<byte[]> images)

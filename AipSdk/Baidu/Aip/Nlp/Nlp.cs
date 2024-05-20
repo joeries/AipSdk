@@ -17,6 +17,18 @@ using Newtonsoft.Json.Linq;
 
 namespace Baidu.Aip.Nlp
 {
+    public class TxtKeywordsExtractionResponse
+    {
+        public long log_id { get; set; }
+        public List<TxtKeywordsExtractionResult> results { get; set; }
+    }
+
+    public class TxtKeywordsExtractionResult
+    {
+        public string word { get; set; }
+        public float score { get; set; }
+    }
+
     /// <summary>
     /// 自然语言处理
     /// </summary>
@@ -63,7 +75,10 @@ namespace Baidu.Aip.Nlp
         
         private const string NEWS_SUMMARY =
             "https://aip.baidubce.com/rpc/2.0/nlp/v1/news_summary";
-        
+
+        private const string TXT_KEYWORDS_EXTRACTION =
+            "https://aip.baidubce.com/rpc/2.0/nlp/v1/txt_keywords_extraction";
+
         public Nlp(string apiKey, string secretKey) : base(apiKey, secretKey)
         {
 
@@ -78,6 +93,25 @@ namespace Baidu.Aip.Nlp
                 ContentEncoding = Encoding.GetEncoding("GBK")
             };
         }
+
+        /// <summary>
+        /// 关键词提取接口
+        /// </summary>
+        /// <param name="texts"></param>
+        /// <param name="num"></param>
+        /// <return>TxtKeywordsExtractionResponse</return>
+        ///
+        public TxtKeywordsExtractionResponse TxtKeywordsExtraction(List<string> text, int num)
+        {
+            var aipReq = DefaultRequest(TXT_KEYWORDS_EXTRACTION);
+
+            aipReq.Bodys["text"] = text;
+            aipReq.Bodys["num"] = num;
+            PreAction();
+
+            return PostAction<TxtKeywordsExtractionResponse>(aipReq);
+        }
+
 
         /// <summary>
         /// 词法分析接口

@@ -22,6 +22,15 @@ using Newtonsoft.Json.Linq;
 
 namespace Baidu.Aip.Speech
 {
+    public class RecognizeResponse
+    {
+        public int err_no {  get; set; }
+        public string err_msg { get; set; }
+        public string corpus_no { get; set; }
+        public string sn { get; set; }
+        public List<string> result { get; set; }
+    }
+
     /// <summary>
     ///     语音识别相关接口
     /// </summary>
@@ -77,6 +86,37 @@ namespace Baidu.Aip.Speech
             req.Bodys["speech"] = Convert.ToBase64String(data);
             req.Bodys["token"] = Token;
             return PostAction(req);
+        }
+
+        /// <summary>
+        ///     识别语音数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="format"></param>
+        /// <param name="rate"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public RecognizeResponse Recognize(string dataBase64, int len, string format, int rate, Dictionary<string, object> options = null)
+        {
+            PreAction();
+            CheckNotNull(dataBase64, "dataBase64");
+            CheckNotNull(format, "format");
+            var req = DefaultRequest(UrlAsr);
+            req.Bodys["format"] = format;
+            req.Bodys["rate"] = rate;
+
+            if (options != null)
+                foreach (var pair in options)
+                    req.Bodys[pair.Key] = pair.Value;
+            if (!req.Bodys.ContainsKey("cuid"))
+                req.Bodys["cuid"] = Cuid;
+
+            if (!req.Bodys.ContainsKey("channel"))
+                req.Bodys["channel"] = 1;
+            req.Bodys["len"] = len;
+            req.Bodys["speech"] = dataBase64;
+            req.Bodys["token"] = Token;
+            return PostAction<RecognizeResponse>(req);
         }
 
         /// <summary>
