@@ -27,12 +27,13 @@ namespace Baidu.Aip.Speech
         public long log_id { get; set; }
         public string task_id { get; set; }
         public string task_status { get; set; }
-        public int error_code { get; set; }
-        public string error_msg { get; set; }
+        public int status { get; set; }
+        public string error { get; set; }
+        public string message { get; set; }
 
         public bool Success
         {
-            get { return error_code == 0; }
+            get { return status == 0; }
         }
     }
 
@@ -106,7 +107,8 @@ namespace Baidu.Aip.Speech
             return new AipHttpRequest(uri)
             {
                 Method = "POST",
-                BodyType = AipHttpRequest.BodyFormat.Formed
+                BodyType = AipHttpRequest.BodyFormat.Json,
+                ContentEncoding = Encoding.UTF8
             };
         }
 
@@ -121,14 +123,14 @@ namespace Baidu.Aip.Speech
             PreAction();
             CheckNotNull(texts, "text");
             CheckListCountNotZero<string>(texts, "text");
-            var req = DefaultRequest($"{UrlLongTts}create");
+            var req = DefaultRequest($"{UrlLongTts}create?access_token={Token}");
 
             if (options != null)
                 foreach (var pair in options)
                     req.Bodys[pair.Key] = pair.Value;
 
             if (!req.Bodys.ContainsKey("lang"))
-                req.Bodys["lan"] = "zh";
+                req.Bodys["lang"] = "zh";
 
             req.Bodys["text"] = texts;
             return PostAction<LongTtsCreateResponse>(req);
@@ -143,8 +145,8 @@ namespace Baidu.Aip.Speech
         {
             PreAction();
             CheckNotNull(task_ids, "task_ids");
-            CheckListCountNotZero<int>(task_ids, "task_ids");
-            var req = DefaultRequest($"{UrlLongTts}query");    
+            CheckListCountNotZero<string>(task_ids, "task_ids");
+            var req = DefaultRequest($"{UrlLongTts}query?access_token={Token}");    
             req.Bodys["task_ids"] = task_ids;
             return PostAction<LongTtsQueryResponse>(req);
         }

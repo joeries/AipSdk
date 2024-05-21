@@ -20,6 +20,8 @@ namespace Baidu.Aip.Nlp
     public class TxtKeywordsExtractionResponse
     {
         public long log_id { get; set; }
+        public int error_code { get; set; }
+        public string error_msg { get; set; }
         public List<TxtKeywordsExtractionResult> results { get; set; }
     }
 
@@ -90,7 +92,7 @@ namespace Baidu.Aip.Nlp
             {
                 Method = "POST",
                 BodyType = AipHttpRequest.BodyFormat.Json,
-                ContentEncoding = Encoding.GetEncoding("GBK")
+                ContentEncoding = Encoding.UTF8
             };
         }
 
@@ -103,7 +105,7 @@ namespace Baidu.Aip.Nlp
         ///
         public TxtKeywordsExtractionResponse TxtKeywordsExtraction(List<string> text, int num)
         {
-            var aipReq = DefaultRequest(TXT_KEYWORDS_EXTRACTION);
+            var aipReq = DefaultRequest($"{TXT_KEYWORDS_EXTRACTION}");
 
             aipReq.Bodys["text"] = text;
             aipReq.Bodys["num"] = num;

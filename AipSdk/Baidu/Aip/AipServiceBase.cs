@@ -185,7 +185,7 @@ namespace Baidu.Aip
 
         protected void CheckListCountNotZero<T>(object obj, string name)
         {            
-            if ((obj as IList<T>).Count == 0)
+            if ((obj as List<T>).Count == 0)
                 throw new AipException(name + " cannot be empty.");
         }
 
