@@ -3,7 +3,7 @@
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Joeries.Baidu.AI</PackageId>
-    <Version>3.6.15</Version>
+    <Version>3.6.16</Version>
     <Authors>Baidu</Authors>
     <Company>Baidu</Company>
     <Product>ai.baidu.com</Product>
