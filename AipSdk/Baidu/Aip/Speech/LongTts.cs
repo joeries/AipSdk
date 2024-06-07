@@ -27,13 +27,12 @@ namespace Baidu.Aip.Speech
         public long log_id { get; set; }
         public string task_id { get; set; }
         public string task_status { get; set; }
-        public int status { get; set; }
-        public string error { get; set; }
-        public string message { get; set; }
+        public int error_code { get; set; }
+        public string error_msg { get; set; }
 
         public bool Success
         {
-            get { return status == 0; }
+            get { return error_code == 0; }
         }
     }
 
