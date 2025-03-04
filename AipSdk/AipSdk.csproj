@@ -3,19 +3,19 @@
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Joeries.Baidu.AI</PackageId>
-    <Version>3.6.16</Version>
+    <Version>3.6.83</Version>
     <Authors>Baidu</Authors>
     <Company>Baidu</Company>
     <Product>ai.baidu.com</Product>
-    <Description>Official release of Baidu AI(http://ai.baidu.com) SDK, including Speech, Face, NLP, OCR, ImageClassify etc. LongTts and keywords extraction added.</Description>
+    <Description>Official release of Baidu AI(http://ai.baidu.com) SDK, including Speech, Face, NLP, OCR, ImageClassify etc. LongTts, keywords extraction, basic TextToImage added.</Description>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
-    <PackageProjectUrl>https://ai.baidu.com</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/joeries/AipSdk</PackageProjectUrl>
     <PackageIconUrl>https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png</PackageIconUrl>
     <Copyright>Copyright 2018</Copyright>
     <PackageTags>Baidu AI SDK AIP</PackageTags>
-    <RepositoryUrl>https://github.com/Baidu-AIP/dotnet-sdk</RepositoryUrl>
+    <RepositoryUrl>https://github.com/joeries/AipSdk</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Update Face interface to FaceV3; Add new OCR interface; Add LongTts and keywords extraction.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Face interface to FaceV3; Add new OCR interface; Add LongTts and keywords extraction; Add Basic TextToImage API.</PackageReleaseNotes>
     <RootNamespace />
     <Title>Baidu.AI</Title>
   </PropertyGroup>
